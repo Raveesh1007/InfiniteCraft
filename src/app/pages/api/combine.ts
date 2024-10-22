@@ -77,7 +77,7 @@ export default async function handler(
     });
 
     if (existingElement2) {
-        result.emoji = existingElement2.emoji;
+        result.emoji = existingElement2.emoji ?? result.emoji;
     }
 
     const newElement = new ElementModel({
