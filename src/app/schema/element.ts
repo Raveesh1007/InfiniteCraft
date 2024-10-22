@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
-export interface element{
+export interface Element{
     text: string;
     emoji: string;
     discovered: boolean;
 }
 
-export interface PlacedElements extends element{
+export interface PlacedElements extends Element{
     id: number;
     x: number;
     y: number;
