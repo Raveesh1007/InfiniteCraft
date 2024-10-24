@@ -41,7 +41,7 @@ export default async function handler(
       },
     });
   }
-
+  
   const chatCompletion = await openai.chat.completions.create({
     messages: [
       {
@@ -60,6 +60,8 @@ export default async function handler(
     model: "gpt-3.5-turbo",
     max_tokens: 512,
   });
+  console.log(chatCompletion)
+  
 
   const output = chatCompletion["choices"][0]["message"]["content"];
   if (!output) {
