@@ -1,12 +1,12 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import { SideBar } from "./components/sidebar";
-import { Element, PlacedElements } from "./schema/element";
-import { defaultElement } from "../app/constants/default-elements";
+import { SideBar } from "../components/sidebar";
+import { Element, PlacedElements } from "../schema/element";
+import { defaultElement } from "../constants/default-elements";
 import { DndContext, DragOverlay } from "@dnd-kit/core";
-import { Playground } from "../app/components/playground";
+import { Playground } from "../components/playground";
 import { v4 as uuid } from "uuid";
-import { ElementCard } from "../app/components/elementcard";
+import { ElementCard } from "../components/elementcard";
 import axios from "axios";
 
 export default function Home() {
