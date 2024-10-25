@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, {Model} from "mongoose";
 
 export interface Element{
     text: string;
@@ -15,14 +15,14 @@ export interface PlacedElements extends Element{
 
 const ElementSchema = new mongoose.Schema(
     {
-        word1: String,
-        word2: String,
-        text: String,
-        emoji: String,
+        word1: {type: String, required: true},
+        word2: {type: String, required: true},
+        text: {type: String, required: true},
+        emoji: {type: String, required: true},  
     },
     {
         timestamps: true,
     }
 );
 
-export const ElementModel = mongoose.model('Element', ElementSchema);
+export const ElementModel: Model<Element> = mongoose.models.Element || mongoose.model<Element>("Element", ElementSchema);
