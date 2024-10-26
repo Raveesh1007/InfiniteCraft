@@ -102,4 +102,3 @@ export const ElementCardDraggableWrapper = ({
       </div>
     </div>
   );
-};
