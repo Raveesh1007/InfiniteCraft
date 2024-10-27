@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { Sort, SortButton } from "./sortbutton";
 import { Element } from "../schema/element";
 import { ElementCardSideBarWrapper } from "./elementcard";
-import { useDraggable } from "@dnd-kit/core";
+
 
 export const SideBar = ({
     elements,
