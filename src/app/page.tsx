@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { SideBar } from "../components/sidebar";
 import { Element, PlacedElements } from "../schema/element";
 import { defaultElement } from "../constants/default-elements";
-import { DndContext, DragOverlay } from "@dnd-kit/core";
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
 import { Playground } from "../components/playground";
 import { v4 as uuid } from "uuid";
 import { ElementCard } from "../components/elementcard";
@@ -20,7 +20,7 @@ export default function Home() {
   const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const handleWindowMouseMove = (event: any) => {
+    const handleWindowMouseMove = (event: MouseEvent) => {
       setMouseCoords({
         x: event.clientX,
         y: event.clientY,
@@ -51,12 +51,16 @@ export default function Home() {
     localStorage.setItem("elements", JSON.stringify(elements));
   }, [elements]);
 
-  const handleDragStart = (event: any) => {
+  const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
-    if (active.data.current.type === "element") {
-      setActiveElement(event.active.data.current.element);
-    } else if (active.data.current.type === "placed-element") {
-      setActivePlacedElements(event.active.data.current.element);
+    if (active.data.current && active.data.current.type === "element") {
+      if (event.active.data.current) {
+        setActiveElement(event.active.data.current.element);
+      }
+    } else if (active.data.current && active.data.current.type === "placed-element") {
+      if (event.active.data.current) {
+        setActivePlacedElements(event.active.data.current.element);
+      }
     }
   };
 
@@ -132,16 +136,16 @@ export default function Home() {
       });
   };
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
     console.log("active", active);
     console.log("over", over);
 
     if (
-      active.data.current.type === "placed-element" &&
+      active.data.current && active.data.current.type === "placed-element" &&
       over &&
-      over.data.current.type === "sidebar"
+      over && over.data.current && over.data.current.type === "sidebar"
     ) {
       const element = active.data.current.element;
       const newPlacedElementss = placedElements.filter(
@@ -149,15 +153,15 @@ export default function Home() {
       );
       setPlacedElementss(newPlacedElementss);
     } else if (
-      active.data.current.type === "placed-element" &&
+      active.data.current && active.data.current.type === "placed-element" &&
       over &&
-      over.data.current.type === "placed-element"
+      over?.data?.current?.type === "placed-element"
     ) {
       handleCombineElements(
         over.data.current.element,
         active.data.current.element
       );
-    } else if (active.data.current.type === "placed-element") {
+    } else if (active.data.current && active.data.current.type === "placed-element") {
       const element = active.data.current.element;
       const newPlacedElementss = placedElements.map((v) =>
         v.id === element.id
@@ -172,9 +176,9 @@ export default function Home() {
     }
 
     if (
-      active.data.current.type === "element" &&
+      active.data.current && active.data.current.type === "element" &&
       over &&
-      over.data.current.type === "Playground"
+      over?.data?.current?.type === "Playground"
     ) {
       const element = active.data.current.element;
       const placedElements = {
@@ -185,7 +189,7 @@ export default function Home() {
       };
       setPlacedElementss((prev) => [...prev, placedElements]);
     } else if (
-      active.data.current.type === "element" &&
+      active.data.current?.type === "element" &&
       over &&
       over.data.current.type === "placed-element"
     ) {
