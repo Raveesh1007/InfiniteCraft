@@ -191,7 +191,7 @@ export default function Home() {
     } else if (
       active.data.current?.type === "element" &&
       over &&
-      over.data.current.type === "placed-element"
+      over?.data?.current?.type === "placed-element"
     ) {
       handleCombineElements(
         over.data.current.element,
