@@ -11,6 +11,14 @@ Welcome to InfinityCraft an experimental project inspired by Neal Agarwal's Infi
 - **Multiple Word Search Filter**: Quickly locate words with sorting, searching, or filtering options to rediscover your creations or find new ones.
 - **Clear and Reset Buttons**: Easily start fresh with a clear button to reset the current word, or a reset button to wipe the board clean.
 
+
+## Tech Stack
+
+**OpenAI**
+**MongoDb**
+**React**
+**TypeScript**
+
 ## How to Use
 
 1. Clone this repository:
